@@ -1,0 +1,116 @@
+/* Media queries */
+@media only screen and (max-width: 360px) {
+  .height-limit {
+    max-height: 50px;
+  }
+}
+
+@media only screen and (min-width: 361px) {
+  .height-limit {
+    max-height: 65px;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .height-limit {
+    max-height: 65px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .height-limit {
+    max-height: 115px;
+  }
+}
+
+.action {
+height: 50px;
+}
+
+/* Loading Styles */
+ .lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Site styles */
+.tile {
+  height: 50px;
+  background-color: #e37662;
+  border-color: black;
+  border-width: 1px;
+}
+
+.directional-tile {
+  height: 50px;
+  background-color: #7c9892;
+  border-color: black;
+  border-width: 1px;
+}
+
+.teo-red-color {
+  background-color: #e37662;
+}
+
+.teo-blue-color {
+  background-color: #7c9892;
+}
+
+.right-direction {
+  transform: rotate(45deg);
+}
+
+.left-direction {
+  transform: rotate(-45deg);
+}
+
+.pyramid-background {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+}
+
+.anachrony-background-image {
+  background-image: url("");
+  background-position: center;
+  background-attachment: fixed;
+}
+.overlay {
+  position: fixed; /* Sit on top of the page content */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+}
+
+.overlay-text {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  height: 60%;
+  overflow: auto;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}

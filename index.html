@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./content/css/anachrony.css" />
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://kit.fontawesome.com/b2d5cf2464.js"></script>
+  </head>
+
+  <body>
+    <div
+      id="loading"
+      class="bg-dark text-white d-none"
+      style="height: 1600px !important;"
+    >
+      <div class="lds-dual-ring"></div>
+      <h2 class="mt-4">Loading...</h2>
+    </div>
+    <div id="app" class="h-100 bg-light">
+      <nav
+        class="navbar navbar-expand-lg navbar-dark bg-dark text-white sticky-top mb-3"
+      >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#">Chronobot</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto col-md-5">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Options
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#" id="newGame">New Game</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <button
+            id="visibility"
+            class="btn btn-outline-info btn-block"
+            data-visible="false"
+          >
+            Show All <i class="far fa-eye"></i>
+          </button>
+          <!-- <button id="pass" class="btn btn-block btn-info">Pass</button> -->
+          <button id="nextAction" class="btn btn-block btn-outline-light">
+            Next Action
+          </button>
+        </div>
+      </nav>
+      <div class="container d-none" id="allActions">
+        <div class="row mb-2">
+          <div
+            class="col-3 border rounded bg-dark text-white action"
+            data-action="power"
+          >
+            Power
+          </div>
+          <div
+            class="col-3 border rounded bg-dark text-white action"
+            data-action="time"
+          >
+            Time
+          </div>
+          <div
+            class="col-3 border rounded bg-dark text-white action"
+            data-action="anomaly"
+          >
+            Anomaly
+          </div>
+          <div class="col-3"></div>
+        </div>
+        <div class="row mb-2">
+          <div
+            class="col-3 border rounded bg-dark text-white action"
+            data-action="refresh"
+          >
+            Refresh
+          </div>
+          <div
+            class="col-3 border rounded bg-dark text-white action"
+            data-action="lab"
+          >
+            Lab
+          </div>
+          <div
+            class="col-3 border rounded bg-dark text-white action"
+            data-action="research"
+          >
+            Research
+          </div>
+          <div
+            class="col-3 border rounded bg-dark text-white action"
+            data-action="mine"
+          >
+            Mine
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div
+            class="col-3 border rounded bg-dark text-white action"
+            data-action="support"
+          >
+            Support
+          </div>
+          <div
+            class="col-3 border rounded bg-dark text-white action"
+            data-action="recruit"
+          >
+            Recruit
+          </div>
+          <div
+            class="col-3 border rounded bg-dark text-white action"
+            data-action="factory"
+          >
+            Factory
+          </div>
+          <div
+            class="col-3 border rounded bg-dark text-white action"
+            data-action="waterTemp"
+          >
+            Water (Single)
+          </div>
+        </div>
+        <div class="row">
+          <div
+            class="col-3 border rounded bg-dark text-white action"
+            data-action="water"
+          >
+            Water
+          </div>
+          <div
+            class="col-3 border rounded bg-dark text-white action"
+            data-action="superProject"
+          >
+            Super Project
+          </div>
+          <div class="col-3"></div>
+          <div class="col-3"></div>
+        </div>
+      </div>
+    </div>
+    <div id="possibleActions" class="text-white container">
+      <div class="col-12 bg-dark rounded action text-center mb-2">Power</div>
+      <div class="col-12 bg-dark rounded action text-center mb-2">Power</div>
+      <div class="col-12 bg-dark rounded action text-center mb-2">Power</div>
+      <div class="col-12 bg-dark rounded action text-center mb-2">Power</div>
+      <div class="col-12 bg-dark rounded action text-center mb-2">Power</div>
+      <div class="col-12 bg-dark rounded action text-center mb-2">Power</div>
+      <div class="col-12 bg-dark rounded action text-center mb-2">Power</div>
+      <div class="col-12 bg-dark rounded action text-center mb-2">Power</div>
+      <div class="col-12 bg-dark rounded action text-center mb-2">Power</div>
+      <div class="col-12 bg-dark rounded action text-center mb-2">Power</div>
+      <div class="col-12 bg-dark rounded action text-center mb-2">Power</div>
+      <div class="col-12 bg-dark rounded action text-center mb-2">Power</div>
+      <div class="col-12 bg-dark rounded action text-center mb-2">Power</div>
+    </div>
+    <div
+      class="modal fade bd-example-modal-lg"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="myLargeModalLabel"
+      aria-hidden="true"
+      id="modal"
+      data-backdrop=""
+      data-keyboard="false"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="container-fluid" id="modalBody"></div>
+        </div>
+      </div>
+    </div>
+    <script src="./scripts/app.js" type="module"></script>
+  </body>
+</html>
