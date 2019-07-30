@@ -1,21 +1,20 @@
 const ActionFailComponent = function(appState, chronobot) {
   function bindEvents() {
-    if (
-      !appState.failEventsBound &&
-      e.target &&
-      e.target.dataset &&
-      e.target.dataset.action
-    ) {
-      const action = e.target.dataset.action;
-      if (action === "fail") {
-        chronobot.water += 2;
-        chronobot.vp++;
+    if (!appState.failEventsBound) {
+      document.addEventListener("click", function(e) {
+        if (e.target && e.target.dataset && e.target.dataset.action) {
+          const action = e.target.dataset.action;
+          if (action === "fail") {
+            chronobot.water += 2;
+            chronobot.vp++;
 
-        $("#modal").modal({ show: false });
-      }
+            $("#modal").modal({ show: false });
+          }
+        }
+
+        appState.failEventsBound = true;
+      });
     }
-
-    appState.failEventsBound = true;
   }
 
   bindEvents();

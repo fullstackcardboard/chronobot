@@ -8,16 +8,6 @@ import ResearchComponent from "./research.js";
 import SupplyComponent from "./supply.js";
 import RecruitComponent from "./recruit.js";
 
-const power = new ConstructComponent(appState, chronobot, "power");
-const lab = new ConstructComponent(appState, chronobot, "lab");
-const support = new ConstructComponent(appState, chronobot, "support");
-const factory = new ConstructComponent(appState, chronobot, "factory");
-const anomaly = new AnomalyComponent(chronobot);
-const mine = new MineComponent(appState, chronobot);
-const research = new ResearchComponent(appState, chronobot);
-const recruit = new RecruitComponent(appState, chronobot);
-const supply = new SupplyComponent(appState, chronobot, recruit);
-const timeTravel = new TimeTravelComponent(appState, chronobot);
 
 let chronobot = {
   vp: 0,
@@ -87,6 +77,17 @@ const appState = {
   }
 };
 
+const components = {
+  power: new ConstructComponent(appState, chronobot, "power"),
+  lab: new ConstructComponent(appState, chronobot, "lab"),
+  support: new ConstructComponent(appState, chronobot, "support"),
+  factory: new ConstructComponent(appState, chronobot, "factory"),
+  anomaly: new AnomalyComponent(chronobot),
+  mine: new MineComponent(appState, chronobot),
+  research: new ResearchComponent(appState, chronobot),
+  supply: new SupplyComponent(appState, chronobot, RecruitComponent),
+  timeTravel: new TimeTravelComponent(appState, chronobot)
+};
 let actions = {
   power: { triggers: [1], nextAction: "time" },
   time: { triggers: [], nextAction: "anomaly" },
@@ -150,13 +151,19 @@ function updateActionTriggers(result) {
       action.triggers = action.triggers.filter(function(x) {
         return x != result;
       });
+
+      const component = components[key];
+      document.getElementById(
+        "modalBody"
+      ).innerHTML = component.executeAction();
+      return;
     }
   }
 }
 
 function init() {
   bindEvents();
-  const failComponent = new FailComponent();
+  const failComponent = new FailComponent(appState, chronobot);
 }
 
 init();

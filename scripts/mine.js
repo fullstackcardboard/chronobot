@@ -1,20 +1,21 @@
 const MineComponent = function(appState, chronobot) {
   function bindEvents() {
-    if (
-      !appState.mineEventsBound &&
-      e.target &&
-      e.target.dataset &&
-      e.target.dataset.action
-    ) {
-      const action = e.target.dataset.action;
-      if (action === "mine") {
-        document.querySelectorAll("[data-resources]").map(function(element) {
-          chronobot[element.value]++;
-        });
-      }
-    }
+    if (!appState.mineEventsBound) {
+      document.addEventListener("click", function(e) {
+        if (e.target && e.target.dataset && e.target.dataset.action) {
+          const action = e.target.dataset.action;
+          if (action === "mine") {
+            Array.from(document
+              .querySelectorAll("[data-resources]"))
+              .map(function(element) {
+                chronobot[element.value]++;
+              });
+          }
+        }
 
-    appState.mineEventsBound = true;
+        appState.mineEventsBound = true;
+      });
+    }
   }
 
   function executeAction() {
@@ -78,3 +79,5 @@ const MineComponent = function(appState, chronobot) {
     executeAction
   };
 };
+
+export default MineComponent;

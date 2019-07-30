@@ -43,3 +43,5 @@ const AnomalyComponent = function(chronobot) {
     executeAction
   };
 };
+
+export default AnomalyComponent;
