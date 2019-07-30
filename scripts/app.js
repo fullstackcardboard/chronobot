@@ -1,7 +1,9 @@
 import ConstructComponent from "./construct.js";
 import TimeTravelComponent from "./timeTravel.js";
+import AnomalyComponent from "./anomaly.js";
+import DieComponent from "./die.js";
 
-const chronoBot = {
+const chronobot = {
   vp: 0,
   anomalies: [],
   buildings: [],
@@ -16,11 +18,11 @@ const chronoBot = {
   administrators: 0,
   geniuses: 0,
   get resourcesScoreable() {
-    reutrn(
+    return (
       this.uranium > 0 &&
-        this.titanium > 0 &&
-        this.gold > 0 &&
-        this.neutronium > 0
+      this.titanium > 0 &&
+      this.gold > 0 &&
+      this.neutronium > 0
     );
   },
   get workersScoreable() {
@@ -30,11 +32,22 @@ const chronoBot = {
       this.administrators > 0 &&
       this.geniuses > 0
     );
+  },
+  moraleTrack: {
+    currentSpace: 0,
+    spaces: [
+      { cost: 5, vp: 0 },
+      { cost: 6, vp: 2 },
+      { cost: 7, vp: 5 },
+      { cost: 7, vp: 8 },
+      {cost: 7, vp: 0}
+    ]
   }
 };
 
 const appState = {
-  constructEventsBound: false
+  constructEventsBound: false,
+  state: []
 };
 
 const actions = {
@@ -54,12 +67,19 @@ const actions = {
 };
 
 function bindEvents() {
-  document.addEventListener("click", function(e) {
+  document.addEventListener("click", async function(e) {
     handleVisibilityClick(e);
-    if (e.target && e.target.id && e.target.id === "nextAction") {
-      const targetElement = e.target;
-    }
+    await handleNextActionClick(e);
+    appState.state.push(appState);
   });
+
+  async function handleNextActionClick(e) {
+    if (e.target && e.target.id && e.target.id === "nextAction") {
+      const die = new DieComponent();
+      const result = await die.roll();
+      updateActionTriggers(result);
+    }
+  }
 
   function handleVisibilityClick(e) {
     if (e.target && e.target.dataset.visible) {
@@ -82,32 +102,19 @@ function bindEvents() {
   }
 }
 
-function rollDice() {
-  let die = 0;
-  // Set an interval to simulate the dice roll
-  let interval = setInterval(() => {
-    die = Math.floor(Math.random() * 6);
-    die = die === 0 ? 1 : die;
-    const dieViewModel = new DieViewModel(die);
-    index++;
-
-    if (index + 1 === 7) {
-      clearInterval(interval);
-      let timeOut = setTimeout(() => {
-        if (model.options.moveNeutral) {
-          setNeutralSpaces();
-          view.renderMoreInfo(
-            new SetupViewModel(
-              new NeutralSpacesViewModel(model.neutralOne, model.neutralTwo)
-            )
-          );
-        }
-        clearTimeout(timeOut);
-      }, 750);
+function updateActionTriggers(result) {
+  const keys = Object.keys(actions);
+  for (let index = 0; index < keys.length; index++) {
+    const key = keys[index];
+    const action = actions[key];
+    if (action.triggers.includes(result)) {
+      const nextAction = actions[action.nextAction];
+      nextAction.triggers.push(result);
+      action.triggers = action.triggers.filter(function(x) {
+        return x != result;
+      });
     }
-  }, 150);
-
-  return die;
+  }
 }
 
 function init() {
