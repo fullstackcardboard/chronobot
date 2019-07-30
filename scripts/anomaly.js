@@ -1,5 +1,5 @@
 const AnomalyComponent = function(chronobot) {
-  function removeAnomaly() {
+  function executeAction() {
     if (
       chronobot.anomalies.length > 0 &&
       chronobot.water >= 2 &&
@@ -40,6 +40,6 @@ const AnomalyComponent = function(chronobot) {
   }
 
   return {
-    removeAnomaly
+    executeAction
   };
 };

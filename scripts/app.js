@@ -2,8 +2,24 @@ import ConstructComponent from "./construct.js";
 import TimeTravelComponent from "./timeTravel.js";
 import AnomalyComponent from "./anomaly.js";
 import DieComponent from "./die.js";
+import FailComponent from "./fail.js";
+import MineComponent from "./mine.js";
+import ResearchComponent from "./research.js";
+import SupplyComponent from "./supply.js";
+import RecruitComponent from "./recruit.js";
 
-const chronobot = {
+const power = new ConstructComponent(appState, chronobot, "power");
+const lab = new ConstructComponent(appState, chronobot, "lab");
+const support = new ConstructComponent(appState, chronobot, "support");
+const factory = new ConstructComponent(appState, chronobot, "factory");
+const anomaly = new AnomalyComponent(chronobot);
+const mine = new MineComponent(appState, chronobot);
+const research = new ResearchComponent(appState, chronobot);
+const recruit = new RecruitComponent(appState, chronobot);
+const supply = new SupplyComponent(appState, chronobot, recruit);
+const timeTravel = new TimeTravelComponent(appState, chronobot);
+
+let chronobot = {
   vp: 0,
   anomalies: [],
   buildings: [],
@@ -40,17 +56,38 @@ const chronobot = {
       { cost: 6, vp: 2 },
       { cost: 7, vp: 5 },
       { cost: 7, vp: 8 },
-      {cost: 7, vp: 0}
+      { cost: 7, vp: 0 }
     ]
+  },
+  breakthroughs: {
+    circle: 0,
+    triangle: 0,
+    square: 0
   }
 };
 
 const appState = {
   constructEventsBound: false,
-  state: []
+  mineEventsBound: false,
+  failEventsBound: false,
+  state: [],
+  updateState: function() {
+    this.state.push({
+      actions,
+      chronobot
+    });
+  },
+  undo: function() {
+    if (this.state.length > 0) {
+      this.state.pop();
+      const state = this.state[this.state.length - 1];
+      actions = state.actions;
+      chronobot = state.chronobot;
+    }
+  }
 };
 
-const actions = {
+let actions = {
   power: { triggers: [1], nextAction: "time" },
   time: { triggers: [], nextAction: "anomaly" },
   anomaly: { triggers: [], nextAction: "power" },
@@ -119,6 +156,7 @@ function updateActionTriggers(result) {
 
 function init() {
   bindEvents();
+  const failComponent = new FailComponent();
 }
 
 init();

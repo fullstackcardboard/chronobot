@@ -1,6 +1,6 @@
-const ConstructComponent = function(appState, chronoBot) {
+const ConstructComponent = function(appState, chronoBot, buildingType) {
   let html = "";
-  let building = {};
+  let building = {type: buildingType};
 
   function bindEvents() {
     if (!appState.constructEventsBound) {
@@ -20,8 +20,7 @@ const ConstructComponent = function(appState, chronoBot) {
       appState.constructEventsBound = true;
     }
   }
-  function construct(newBuilding) {
-    building = newBuilding;
+  function executeAction() {
     const matchingBuildings = chronoBot.buildings.filter(function(x) {
       return x.type === building.type;
     });
@@ -53,8 +52,7 @@ const ConstructComponent = function(appState, chronoBot) {
     function generateBuildingActionHtml(buildable) {
       if (buildable) {
         html += `
-        <div class="row mb-2">
-            <div class="col-8">
+            <div class="col-8 m-auto">
                 <select id="buildVp" class="form-control ml-1">
                     <option value="1">1 VP</option>
                     <option value="2">2 VP</option>
@@ -62,14 +60,13 @@ const ConstructComponent = function(appState, chronoBot) {
                     <option value="4">4 VP</option>
                 </select>
             </div>
-            <div class="col-4">
+            <div class="col-8 m-auto">
                 <button class="btn btn-block mr-1 btn-primary" data-action="build">Build</button>
-            </div>
-        </div>`;
+            </div>`;
       } else {
         html += `
                 <div class="mb-2">
-                    <button class="btn btn-block col-6 m-auto mb-2 btn-secondary" data-action="dismiss">Close</button>
+                    <button class="btn btn-block col-6 m-auto mb-2 btn-secondary" data-action="fail">Action Failed</button>
                 </div>`;
       }
     }
@@ -99,7 +96,7 @@ const ConstructComponent = function(appState, chronoBot) {
   bindEvents();
 
   return {
-    construct
+    executeAction
   };
 };
 
