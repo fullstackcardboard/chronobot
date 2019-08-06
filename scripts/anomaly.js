@@ -36,7 +36,7 @@ const AnomalyComponent = function(chronobot) {
       return "<div>Anomaly removed.</div>";
     }
 
-    return "<div>Anomaly removal failed</div>";
+    return "<div><button class='btn btn-danger mb-2 mt-2' data-action='fail'>Action Failed</button></div>";
   }
 
   return {

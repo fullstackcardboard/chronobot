@@ -7,7 +7,9 @@ import MineComponent from "./mine.js";
 import ResearchComponent from "./research.js";
 import SupplyComponent from "./supply.js";
 import RecruitComponent from "./recruit.js";
+import ModalComponent from "./modal.js";
 
+const modal = new ModalComponent();
 
 let chronobot = {
   vp: 0,
@@ -78,15 +80,20 @@ const appState = {
 };
 
 const components = {
-  power: new ConstructComponent(appState, chronobot, "power"),
-  lab: new ConstructComponent(appState, chronobot, "lab"),
-  support: new ConstructComponent(appState, chronobot, "support"),
-  factory: new ConstructComponent(appState, chronobot, "factory"),
+  recruit: new RecruitComponent(appState, chronobot, modal),
+  power: new ConstructComponent(appState, chronobot, "power", modal),
+  lab: new ConstructComponent(appState, chronobot, "lab", modal),
+  support: new ConstructComponent(appState, chronobot, "support", modal),
+  factory: new ConstructComponent(appState, chronobot, "factory", modal),
   anomaly: new AnomalyComponent(chronobot),
-  mine: new MineComponent(appState, chronobot),
+  mine: new MineComponent(appState, chronobot, modal),
   research: new ResearchComponent(appState, chronobot),
-  supply: new SupplyComponent(appState, chronobot, RecruitComponent),
-  timeTravel: new TimeTravelComponent(appState, chronobot)
+  supply: new SupplyComponent(
+    appState,
+    chronobot,
+    new RecruitComponent(appState, chronobot, modal)
+  ),
+  time: new TimeTravelComponent(appState, chronobot)
 };
 let actions = {
   power: { triggers: [1], nextAction: "time" },
@@ -108,12 +115,11 @@ function bindEvents() {
   document.addEventListener("click", async function(e) {
     handleVisibilityClick(e);
     await handleNextActionClick(e);
-    appState.state.push(appState);
   });
 
   async function handleNextActionClick(e) {
     if (e.target && e.target.id && e.target.id === "nextAction") {
-      const die = new DieComponent();
+      const die = new DieComponent(modal);
       const result = await die.roll();
       updateActionTriggers(result);
     }
@@ -153,9 +159,9 @@ function updateActionTriggers(result) {
       });
 
       const component = components[key];
-      document.getElementById(
-        "modalBody"
-      ).innerHTML = component.executeAction();
+      modal.show();
+      modal.setBody(component.executeAction());
+      appState.state.push(appState);
       return;
     }
   }
@@ -163,7 +169,7 @@ function updateActionTriggers(result) {
 
 function init() {
   bindEvents();
-  const failComponent = new FailComponent(appState, chronobot);
+  const failComponent = new FailComponent(appState, chronobot, modal);
 }
 
 init();

@@ -1,15 +1,29 @@
-const MineComponent = function(appState, chronobot) {
+const MineComponent = function(appState, chronobot, modal) {
   function bindEvents() {
     if (!appState.mineEventsBound) {
       document.addEventListener("click", function(e) {
         if (e.target && e.target.dataset && e.target.dataset.action) {
           const action = e.target.dataset.action;
           if (action === "mine") {
-            Array.from(document
-              .querySelectorAll("[data-resources]"))
-              .map(function(element) {
-                chronobot[element.value]++;
-              });
+            Array.from(document.querySelectorAll("[data-resources]")).map(
+              function(element) {
+                chronobot[element.value.toLowerCase()]++;
+              }
+            );
+            modal.hide();
+
+            if (
+              chronobot.neutronium > 0 &&
+              chronobot.gold > 0 &&
+              chronobot.uranium > 0 &&
+              chronobot.titanium > 0
+            ) {
+              chronobot.neutronium--;
+              chronobot.gold--;
+              chronobot.uranium--;
+              chronobot.titanium--;
+              chronobot.vp += 5;
+            }
           }
         }
 
@@ -24,22 +38,22 @@ const MineComponent = function(appState, chronobot) {
         <h3>Mine</h3>
     </div>
     <div>
-        <ul class="list-unstyled">
-            <li class="badge badge-dark col-12 mb-2">
+        <ul class="list-unstyled  col col">
+            <li class="badge-dark col-12 mb-2">
                 <p>Place a powered up exosuit in an available Mine space with the following preferences:</p>
-                <ul class="list-unstyled">
+                <ul class="list-unstyled  col">
                     <li><p>Top Mine Space > Bottom Mine Space > World Council Space (1st player) > World Council Space</p></li>
                 </ul>
             </li>
-            <li class="badge badge-dark col-12 mb-2">
+            <li class="badge-dark col-12 mb-2">
                 <p>Take resources that Chronobot does not yet have; with the following preferences:</p>
-                <ul class="list-unstyled">
+                <ul class="list-unstyled  col">
                     <li><p>Neutronium > Uranium > Gold > Titanium</p></li>
                 </ul>
             </li>
-            <li class="badge badge-dark col-12 mb-2">
+            <li class="badge-dark col-12 mb-2">
                 <p>If not available, or tied, take resources with the following preferences:</p>
-                <ul class="list-unstyled">
+                <ul class="list-unstyled  col">
                     <li><p>Neutronium > Uranium > Gold > Titanium</p></li>
                 </ul>
             </li>
@@ -47,8 +61,8 @@ const MineComponent = function(appState, chronobot) {
     </div>
     <div class="row mb-2">
         <div class="col-6">
-            <select data-action="resources" class="form-control ml-1">
-                <option>Select 1st Resource</option>
+          <label>Resource One</label>
+            <select data-resources="" class="form-control">
                 <option>Neutronium</option>
                 <option>Uranium</option>
                 <option>Gold</option>
@@ -56,8 +70,8 @@ const MineComponent = function(appState, chronobot) {
             </select>
         </div>
         <div class="col-6">
-            <select data-action="resources" class="form-control ml-1">
-                <option>Select 2nd Resource</option>
+          <label>Resource Two</label>
+            <select data-resources="" class="form-control mb-2">
                 <option>Neutronium</option>
                 <option>Uranium</option>
                 <option>Gold</option>
@@ -66,10 +80,10 @@ const MineComponent = function(appState, chronobot) {
         </div>
     </div>
         <div class="col-8 m-auto">
-            <button class="btn btn-block btn-danger" data-action="fail">Action Failed</button>
+            <button class="btn btn-block btn-danger mb-2" data-action="fail">Action Failed</button>
         </div>
         <div class="col-8 m-auto">
-            <button class="btn btn-block btn-primary" data-action="mine">Mine</button>
+            <button class="btn btn-block btn-primary mb-2" data-action="mine">Mine</button>
         </div>`;
   }
 

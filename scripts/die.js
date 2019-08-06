@@ -7,21 +7,19 @@ const DieViewModel = function(die) {
   };
 };
 
-const DieComponent = function() {
+const DieComponent = function(modal) {
   async function roll() {
     return new Promise(resolve => {
       let die = 0;
       let index = 0;
-      $("#modal").modal({
-        keyboard: true,
-        backdrop: true
-      });
+      modal.setBody(new DieViewModel(1).html);
+      modal.show();
       // Set an interval to simulate the dice roll
       let interval = setInterval(() => {
         die = Math.floor(Math.random() * 6);
         die = die === 0 ? 1 : die;
         const dieViewModel = new DieViewModel(die);
-        document.getElementById("modalBody").innerHTML = dieViewModel.html;
+        modal.setBody(dieViewModel.html);
         index++;
 
         if (index + 1 === 7) {

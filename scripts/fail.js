@@ -8,7 +8,7 @@ const ActionFailComponent = function(appState, chronobot) {
             chronobot.water += 2;
             chronobot.vp++;
 
-            $("#modal").modal({ show: false });
+            $("#modal").modal("hide");
           }
         }
 
