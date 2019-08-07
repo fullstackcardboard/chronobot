@@ -8,10 +8,11 @@ import ResearchComponent from "./research.js";
 import SupplyComponent from "./supply.js";
 import RecruitComponent from "./recruit.js";
 import ModalComponent from "./modal.js";
+import WaterComponent from "./water.js";
 
 const modal = new ModalComponent();
 
-let chronobot = {
+const chronobot = {
   vp: 0,
   anomalies: [],
   buildings: [],
@@ -25,6 +26,26 @@ let chronobot = {
   engineers: 0,
   administrators: 0,
   geniuses: 0,
+  get powerPlants() {
+    return this.buildings.filter(function(building) {
+      return building.type === "power";
+    }).length;
+  },
+  get factories() {
+    return this.buildings.filter(function(building) {
+      return building.type === "factory";
+    }).length;
+  },
+  get supports() {
+    return this.buildings.filter(function(building) {
+      return building.type === "support";
+    }).length;
+  },
+  get labs() {
+    return this.buildings.filter(function(building) {
+      return building.type === "lab";
+    }).length;
+  },
   get resourcesScoreable() {
     return (
       this.uranium > 0 &&
@@ -51,10 +72,69 @@ let chronobot = {
       { cost: 7, vp: 0 }
     ]
   },
+  timeTravelTrack: {
+    currentSpace: 0,
+    spaces: [
+      { vp: 0 },
+      { vp: 2 },
+      { vp: 4 },
+      { vp: 6 },
+      { vp: 8 },
+      { vp: 10 },
+      { vp: 12 }
+    ]
+  },
   breakthroughs: {
     circle: 0,
     triangle: 0,
     square: 0
+  },
+  updateDisplay: function() {
+    document.getElementById("stats").innerHTML = `
+        <div class="row">
+            <div class="col">
+                <p>VP: ${this.vp}</p>
+            </div>
+            <div class="col">
+                <p>Water: ${this.water}</p>
+            </div>
+            <div class="col">
+                <p>Neutronium: ${this.neutronium}</p>
+            </div>
+            <div class="col">
+                <p>Uranium: ${this.uranium}</p>
+            </div>
+            <div class="col">
+                <p>Gold: ${this.gold}</p>
+            </div>
+            <div class="col">
+                <p>Titanium: ${this.titanium}</p>
+            </div>
+            <div class="col">
+                <p>Scientists: ${this.scientists}</p>
+            </div>
+            <div class="col">
+                <p>Engineers: ${this.engineers}</p>
+            </div>
+            <div class="col">
+                <p>Administrators: ${this.administrators}</p>
+            </div>
+            <div class="col">
+                <p>Geniuses: ${this.geniuses}</p>
+            </div>
+            <div class="col">
+                <p>Power Plants: ${this.powerPlants}</p>
+            </div>
+            <div class="col">
+                <p>Factories: ${this.factories}</p>
+            </div>
+            <div class="col">
+                <p>Life Supports: ${this.supports}</p>
+            </div>
+            <div class="col">
+                <p>Labs: ${this.labs}</p>
+            </div>
+        </div>`;
   }
 };
 
@@ -85,27 +165,28 @@ const components = {
   lab: new ConstructComponent(appState, chronobot, "lab", modal),
   support: new ConstructComponent(appState, chronobot, "support", modal),
   factory: new ConstructComponent(appState, chronobot, "factory", modal),
-  anomaly: new AnomalyComponent(chronobot),
+  anomaly: new AnomalyComponent(appState, chronobot, modal),
   mine: new MineComponent(appState, chronobot, modal),
-  research: new ResearchComponent(appState, chronobot),
+  research: new ResearchComponent(appState, chronobot, modal),
   supply: new SupplyComponent(
-    appState,
     chronobot,
     new RecruitComponent(appState, chronobot, modal)
   ),
-  time: new TimeTravelComponent(appState, chronobot)
+  time: new TimeTravelComponent(appState, chronobot, modal),
+  water: new WaterComponent(appState, chronobot, modal),
+  waterTemp: new WaterComponent(appState, chronobot, modal)
 };
 let actions = {
   power: { triggers: [1], nextAction: "time" },
   time: { triggers: [], nextAction: "anomaly" },
   anomaly: { triggers: [], nextAction: "power" },
-  refresh: { triggers: [], nextAction: "lab" },
+  supply: { triggers: [], nextAction: "lab" },
   lab: { triggers: [2], nextAction: "research" },
   research: { triggers: [], nextAction: "mine" },
   mine: { triggers: [3], nextAction: "support" },
   support: { triggers: [4], nextAction: "recruit" },
   recruit: { triggers: [], nextAction: "factory" },
-  factory: { triggers: [], nextAction: "refresh" },
+  factory: { triggers: [], nextAction: "supply" },
   waterTemp: { triggers: [5], nextAction: "support" },
   water: { triggers: [6], nextAction: "superProject" },
   superProject: { triggers: [], nextAction: "water" }
@@ -160,7 +241,11 @@ function updateActionTriggers(result) {
 
       const component = components[key];
       modal.show();
-      modal.setBody(component.executeAction());
+      if (component && "executeAction" in component) {
+        modal.setBody(component.executeAction());
+      } else {
+        modal.setBody(key + " failed");
+      }
       appState.state.push(appState);
       return;
     }
@@ -170,6 +255,7 @@ function updateActionTriggers(result) {
 function init() {
   bindEvents();
   const failComponent = new FailComponent(appState, chronobot, modal);
+  chronobot.updateDisplay();
 }
 
 init();

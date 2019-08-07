@@ -23,8 +23,8 @@ const DieComponent = function(modal) {
         index++;
 
         if (index + 1 === 7) {
-          resolve(die);
           clearInterval(interval);
+          resolve(die);
         }
       }, 150);
     });

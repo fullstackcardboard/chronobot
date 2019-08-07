@@ -40,6 +40,11 @@
       <h2 class="mt-4">Loading...</h2>
     </div>
     <div id="app" class="h-100 bg-light">
+      <div></div>
+      <div class=" bg-dark text-white sticky-top w-100">
+        <a href="#" data-toggle="collapse" data-target=".collapse"class="btn dropdown-toggle text-white mb-2 mt-1 ml-2">Stats</a>
+        <div id="stats" class="collapse container bg-secondary"></div>
+      </div>
       <nav
         class="navbar navbar-expand-lg navbar-dark bg-dark text-white sticky-top mb-3"
       >
@@ -114,9 +119,9 @@
         <div class="row mb-2">
           <div
             class="col-3 border rounded bg-dark text-white action"
-            data-action="refresh"
+            data-action="supply"
           >
-            Refresh
+            Supply/Recruit
           </div>
           <div
             class="col-3 border rounded bg-dark text-white action"
@@ -181,8 +186,7 @@
         </div>
       </div>
     </div>
-    <div id="possibleActions" class="text-white container">
-    </div>
+    <div id="possibleActions" class="text-white container"></div>
     <div
       class="modal fade bd-example-modal-lg"
       tabindex="-1"

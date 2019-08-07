@@ -1,27 +1,51 @@
-const TimeTravelComponent = function(chronoBot) {
-  let html = "";
+const TimeTravelComponent = function(appState, chronoBot, modal) {
+  
+
+  function bindEvents() {
+    if (!appState.timeTravelEventsBound) {
+      document.addEventListener("click", function(e) {
+        if (
+          e.target &&
+          e.target.dataset &&
+          e.target.dataset.action &&
+          e.target.dataset.action === "time"
+        ) {
+          chronoBot.timeTravelTrack.currentSpace++;
+          modal.hide();
+        }
+
+        appState.timeTravelEventsBound = true;
+      });
+    }
+  }
+
+  bindEvents();
 
   function executeAction() {
-    if (chronoBot.timePoints < 12) {
-      html += `
+    let html = "";
+    html += `
     <div>
         <h3>Time Travel</h3>
-    </div>
+    </div>`;
+    if (chronoBot.timeTravelTrack.currentSpace < chronoBot.timeTravelTrack.spaces.length) {
+      html += `
     <div>
         <ul class="list-unstyled">
             <li>
-                <p class="badge badge-dark">Remove any one Warp tile from the past Timeline tile where Chronobot has the most Warp tiles (oldest if tied).</p>                
+                <p class="badge-dark col rounded m-auto">Remove any one Warp tile from the past Timeline tile where Chronobot has the most Warp tiles (oldest if tied).</p>                
             </li>
         </ul>
-    </div>`;
-      chronoBot.timePoints += 2;
+    </div>    
+        <div class="col-8 m-auto">
+            <button class="btn btn-block btn-primary mb-2" data-action="time">Remove Warp Tile</button>
+        </div>`;
     } else {
       html += `  
       <div>
-        <h3 class="text-danger">Action is not possible. Chronobot scores 2 VP and gains 1 water.</h3>
+        <h3 class="text-danger">Action not possible.</h3>
       </div>
       <div class="col-8 m-auto">
-            <button class="btn btn-block btn-danger" data-action="fail">Action Failed</button>
+            <button class="btn btn-block btn-danger mb-2" data-action="fail">Action Failed</button>
         </div>`;
     }
 

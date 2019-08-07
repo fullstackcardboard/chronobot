@@ -18,10 +18,13 @@ const ConstructComponent = function(appState, chronoBot, type, modal) {
           const targetElement = e.target;
           const action = targetElement.dataset.action;
           if (action === "build") {
+            const newBuilding = { type: targetElement.dataset.type };
             const buildingVpInput = document.getElementById("buildVp");
-            building.vp = buildingVpInput.value;
-            chronoBot.buildings.push(building);
+            newBuilding.vp = buildingVpInput.value;
+            chronoBot.buildings.push(newBuilding);
+            chronoBot.vp += parseInt(newBuilding.vp);
             modal.hide();
+            chronoBot.updateDisplay();
           }
         }
       });
@@ -44,8 +47,8 @@ const ConstructComponent = function(appState, chronoBot, type, modal) {
         <h3>Construct ${buildingType}</h3>
     </div>
     <div>
-        <ul class="list-unstyled">
-            <li class="badge-dark col-12 mb-2">
+        <ul class="list-unstyled mb-1 mt-1">
+            <li class="badge-dark col-12 mb-2 rounded">
                 <p>Place a powered up exosuit in an available Construct space with the following preferences:</p>
                 <ul class="list-unstyled">
                     <li><p>Top Construct Space > Bottom Construct Space > World Council Space (1st player) > World Council Space</p></li>
@@ -70,7 +73,7 @@ const ConstructComponent = function(appState, chronoBot, type, modal) {
                 </select>
             </div>
             <div class="col-8 m-auto">
-                <button class="btn btn-block btn-primary mb-2" data-action="build">Build</button>
+                <button class="btn btn-block btn-primary mb-2" data-action="build" data-type="${type}">Build</button>
             </div>`;
       } else {
         html += `
@@ -83,7 +86,7 @@ const ConstructComponent = function(appState, chronoBot, type, modal) {
     function generateBuildingStepHtml(buildable) {
       if (buildable) {
         html += `
-        <li  class="badge badge-dark col-12">
+        <li  class="rounded badge-dark col-12">
             <p>Construct a ${buildingType} with the following preferences:</p>
             <ul class="list-unstyled">
                 <li>

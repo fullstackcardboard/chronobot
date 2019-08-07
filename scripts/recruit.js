@@ -6,10 +6,10 @@ const RecruitComponent = function(appState, chronobot, modal) {
           const action = e.target.dataset.action;
           if (action === "recruit") {
             const recruitSelect = document.getElementById("recruitSelect");
-            const selectedWorker = recruitSelect.value;
+            let selectedWorker = recruitSelect.value.toLowerCase();
+            selectedWorker = selectedWorker === "genius" ? "geniuses" : selectedWorker +"s";
             chronobot[selectedWorker]++;
             modal.hide();
-
             if (
               chronobot.scientists > 0 &&
               chronobot.engineers > 0 &&
@@ -21,6 +21,7 @@ const RecruitComponent = function(appState, chronobot, modal) {
               chronobot.adminstrators--;
               chronobot.geniuses--;
             }
+            chronobot.updateDisplay();
           }
         }
       });
@@ -32,7 +33,7 @@ const RecruitComponent = function(appState, chronobot, modal) {
   function executeAction() {
     return `
     <div>
-        <h3>Recruit</h3>
+        <h3>Recruit - CURRENT WORKERS WILL DISPLAY HERE</h3>
     </div>
     <div>
         <ul class="list-unstyled  col col">
@@ -69,6 +70,7 @@ const RecruitComponent = function(appState, chronobot, modal) {
         </div>`;
   }
 
+  bindEvents();
   return {
     executeAction
   };

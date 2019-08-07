@@ -11,7 +11,6 @@ const MineComponent = function(appState, chronobot, modal) {
               }
             );
             modal.hide();
-
             if (
               chronobot.neutronium > 0 &&
               chronobot.gold > 0 &&
@@ -24,6 +23,7 @@ const MineComponent = function(appState, chronobot, modal) {
               chronobot.titanium--;
               chronobot.vp += 5;
             }
+            chronobot.updateDisplay();
           }
         }
 
@@ -35,7 +35,7 @@ const MineComponent = function(appState, chronobot, modal) {
   function executeAction() {
     return `
     <div>
-        <h3>Mine</h3>
+        <h3>Mine - CURRENT RESOURCES WILL DISPLAY HERE</h3>
     </div>
     <div>
         <ul class="list-unstyled  col col">

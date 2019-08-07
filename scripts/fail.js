@@ -1,4 +1,4 @@
-const ActionFailComponent = function(appState, chronobot) {
+const ActionFailComponent = function(appState, chronobot, modal) {
   function bindEvents() {
     if (!appState.failEventsBound) {
       document.addEventListener("click", function(e) {
@@ -7,8 +7,8 @@ const ActionFailComponent = function(appState, chronobot) {
           if (action === "fail") {
             chronobot.water += 2;
             chronobot.vp++;
-
-            $("#modal").modal("hide");
+            modal.hide();
+            chronobot.updateDisplay();
           }
         }
 
