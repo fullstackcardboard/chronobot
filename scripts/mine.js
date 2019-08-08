@@ -34,20 +34,20 @@ const MineComponent = function(appState, chronobot, modal) {
         <h3>Mine - CURRENT RESOURCES WILL DISPLAY HERE</h3>
     </div>
     <div>
-        <ul class="list-unstyled  col col">
-            <li class="badge-dark col-12 mb-2">
+        <ul class="list-unstyled  col">
+            <li class="badge-dark col-12 mb-2 rounded">
                 <p>Place a powered up exosuit in an available Mine space with the following preferences:</p>
                 <ul class="list-unstyled  col">
                     <li><p>Top Mine Space > Bottom Mine Space > World Council Space (1st player) > World Council Space</p></li>
                 </ul>
             </li>
-            <li class="badge-dark col-12 mb-2">
+            <li class="badge-dark col-12 mb-2 rounded">
                 <p>Take resources that Chronobot does not yet have; with the following preferences:</p>
                 <ul class="list-unstyled  col">
                     <li><p>Neutronium > Uranium > Gold > Titanium</p></li>
                 </ul>
             </li>
-            <li class="badge-dark col-12 mb-2">
+            <li class="badge-dark col-12 mb-2 rounded">
                 <p>If not available, or tied, take resources with the following preferences:</p>
                 <ul class="list-unstyled  col">
                     <li><p>Neutronium > Uranium > Gold > Titanium</p></li>
