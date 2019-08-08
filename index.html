@@ -39,28 +39,23 @@
       <div class="lds-dual-ring"></div>
       <h2 class="mt-4">Loading...</h2>
     </div>
+    <div id="hide" class="d-none bg-secondary" style="height: 4000px; z-index: 1031"></div>
     <div id="app" class="h-100 bg-light">
-      <div></div>
       <div class=" bg-dark text-white sticky-top w-100">
-        <a href="#" data-toggle="collapse" data-target=".collapse"class="btn dropdown-toggle text-white mb-2 mt-1 ml-2">Stats</a>
+        <a
+          href="#"
+          data-toggle="collapse"
+          data-target=".collapse"
+          class="btn dropdown-toggle text-white mb-2 mt-1 ml-2"
+          >Chronobot</a
+        >
         <div id="stats" class="collapse container bg-secondary"></div>
       </div>
       <nav
-        class="navbar navbar-expand-lg navbar-dark bg-dark text-white sticky-top mb-3"
+        class="navbar navbar-dark bg-dark text-white sticky-top mb-3"
       >
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand" href="#">Chronobot</a>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- <a class="navbar-brand" href="#">Chronobot</a> -->
+        <div class="navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto col-md-5">
             <li class="nav-item dropdown">
               <a
@@ -76,22 +71,10 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="#" id="newGame">New Game</a>
+                <a class="dropdown-item" href="#" data-action="undo">Undo</a>
               </div>
             </li>
           </ul>
-        </div>
-        <div>
-          <button
-            id="visibility"
-            class="btn btn-outline-info btn-block"
-            data-visible="false"
-          >
-            Show All <i class="far fa-eye"></i>
-          </button>
-          <!-- <button id="pass" class="btn btn-block btn-info">Pass</button> -->
-          <button id="nextAction" class="btn btn-block btn-outline-light">
-            Next Action
-          </button>
         </div>
       </nav>
       <div class="container d-none" id="allActions">
@@ -201,6 +184,34 @@
         <div class="modal-content">
           <div class="container-fluid" id="modalBody"></div>
         </div>
+      </div>
+    </div>
+
+    <div class="fixed-bottom bg-dark row">
+      <div class="mb-1 mt-1 col-md">
+        <button
+          class="btn btn-outline-danger m-auto btn-block mb-1 col-11"
+          data-action="addAnomaly"
+        >
+          Add Anomaly
+        </button>
+      </div>
+      <div class="mb-1 mt-1 col-md">
+      <button
+        id="visibility"
+        class="btn btn-outline-info btn-block m-auto mb-1 col-11"
+        data-visible="false"
+      >
+        Show All <i class="far fa-eye"></i>
+      </button>
+      </div>
+      <div class="mb-1 mt-1 col-md">
+      <button
+        id="nextAction"
+        class="btn btn-block btn-outline-light m-auto mb-1 col-11"
+      >
+        Next Action
+      </button>
       </div>
     </div>
     <script src="./scripts/app.js" type="module"></script>

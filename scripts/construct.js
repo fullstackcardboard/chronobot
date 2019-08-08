@@ -21,10 +21,11 @@ const ConstructComponent = function(appState, chronoBot, type, modal) {
             const newBuilding = { type: targetElement.dataset.type };
             const buildingVpInput = document.getElementById("buildVp");
             newBuilding.vp = buildingVpInput.value;
-            chronoBot.buildings.push(newBuilding);
-            chronoBot.vp += parseInt(newBuilding.vp);
+            chronoBot.properties.buildings.push(newBuilding);
+            chronoBot.properties.vp += parseInt(newBuilding.vp);
             modal.hide();
             chronoBot.updateDisplay();
+            appState.updateState();
           }
         }
       });
@@ -33,7 +34,9 @@ const ConstructComponent = function(appState, chronoBot, type, modal) {
     }
   }
   function executeAction() {
-    const matchingBuildings = chronoBot.buildings.filter(function(x) {
+    const matchingBuildings = chronoBot.properties.buildings.filter(function(
+      x
+    ) {
       return x.type === building.type;
     });
     const buildable =
@@ -78,7 +81,7 @@ const ConstructComponent = function(appState, chronoBot, type, modal) {
       } else {
         html += `
                 <div class="col-8 m-auto">
-                    <button class="btn btn-block btn-danger" data-action="fail">Action Failed</button>
+                    <button class="btn btn-block btn-danger mb-2" data-action="fail">Action Failed</button>
                 </div>`;
       }
     }

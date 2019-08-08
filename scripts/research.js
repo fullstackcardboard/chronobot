@@ -11,6 +11,7 @@ const ResearchComponent = function(appState, chronobot, modal) {
           e.target.dataset.action === "breakthrough"
         ) {
           modal.hide();
+          appState.updateState();
         }
       });
     }
@@ -19,14 +20,13 @@ const ResearchComponent = function(appState, chronobot, modal) {
 
   function executeAction() {
     const breakthroughIndex = Math.floor(Math.random() * breakthroughs.length);
-    chronobot.vp++;
+    chronobot.properties.vp++;
     const breakthrough = breakthroughs[breakthroughIndex];
-    chronobot.breakthroughs[breakthroughIndex]++;
+    chronobot.properties.breakthroughs[breakthroughIndex]++;
     chronobot.updateDisplay();
-    modal.hide();
     return `<div>
     <h3>Research</h3>
-      <div class="col-8 m-auto">
+      <div class="col m-auto">
             <button class="btn btn-block btn-primary mb-2" data-action="breakthrough">Gain ${breakthrough} Breakthrough</button>
         </div>
         </div>`;

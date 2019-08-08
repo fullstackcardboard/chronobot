@@ -1,6 +1,4 @@
 const TimeTravelComponent = function(appState, chronoBot, modal) {
-  
-
   function bindEvents() {
     if (!appState.timeTravelEventsBound) {
       document.addEventListener("click", function(e) {
@@ -10,8 +8,9 @@ const TimeTravelComponent = function(appState, chronoBot, modal) {
           e.target.dataset.action &&
           e.target.dataset.action === "time"
         ) {
-          chronoBot.timeTravelTrack.currentSpace++;
+          chronoBot.properties.timeTravelTrack.currentSpace++;
           modal.hide();
+          appState.updateState();
         }
 
         appState.timeTravelEventsBound = true;
@@ -27,7 +26,10 @@ const TimeTravelComponent = function(appState, chronoBot, modal) {
     <div>
         <h3>Time Travel</h3>
     </div>`;
-    if (chronoBot.timeTravelTrack.currentSpace < chronoBot.timeTravelTrack.spaces.length) {
+    if (
+      chronoBot.properties.timeTravelTrack.currentSpace <
+      chronoBot.properties.timeTravelTrack.spaces.length
+    ) {
       html += `
     <div>
         <ul class="list-unstyled">

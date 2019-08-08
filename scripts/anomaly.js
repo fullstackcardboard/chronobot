@@ -2,41 +2,63 @@ const AnomalyComponent = function(appState, chronobot, modal) {
   function bindEvents() {
     if (!appState.anomalyEventsBound) {
       document.addEventListener("click", function(e) {
+        handleAnomalyRemoval(e);
+        handleAnomalyAddition(e);
+        appState.anomalyEventsBound = true;
+      });
+
+      function handleAnomalyRemoval(e) {
         if (
           e.target &&
           e.target.dataset &&
           e.target.dataset.action &&
           e.target.dataset.action === "anomaly"
         ) {
-          chronobot.water -= 2;
+          chronobot.properties.water -= 2;
           let resourcesSpent = 0;
 
           for (let index = 0; index < 2; index++) {
-            if (chronobot.titanium > 0) {
+            if (chronobot.properties.titanium > 0) {
               resourcesSpent++;
-              chronobot.titanium--;
+              chronobot.properties.titanium--;
               return;
             }
-            if (chronobot.gold > 0) {
+            if (chronobot.properties.gold > 0) {
               resourcesSpent++;
               chronobot.gold--;
               return;
             }
-            if (chronobot.uranium > 0) {
+            if (chronobot.properties.uranium > 0) {
               resourcesSpent++;
-              chronobot.uranium--;
+              chronobot.properties.uranium--;
               return;
             }
 
-            if (index > 0 && resourcesSpent < 2 && chronobot.neutronium > 0) {
-              chronobot.neutronium--;
+            if (
+              index > 0 &&
+              resourcesSpent < 2 &&
+              chronobot.properties.neutronium > 0
+            ) {
+              chronobot.properties.neutronium--;
             }
           }
-
-          chronobot.anomalies.pop();
+          chronobot.properties.anomalies--;
           modal.hide();
+          appState.updateState();
         }
-      });
+      }
+      function handleAnomalyAddition(e) {
+        if (
+          e.target &&
+          e.target.dataset &&
+          e.target.dataset.action &&
+          e.target.dataset.action === "addAnomaly"
+        ) {
+          chronobot.properties.anomalies++;
+          chronobot.updateDisplay();
+          appState.updateState();
+        }
+      }
     }
   }
 
@@ -44,10 +66,13 @@ const AnomalyComponent = function(appState, chronobot, modal) {
 
   function executeAction() {
     if (
-      chronobot.anomalies.length > 0 &&
-      chronobot.water >= 2 &&
-      (chronobot.titanium + chronobot.gold + chronobot.uranium >= 2 ||
-        chronobot.neutronium > 0)
+      chronobot.properties.anomalies > 0 &&
+      chronobot.properties.water >= 2 &&
+      (chronobot.properties.titanium +
+        chronobot.properties.gold +
+        chronobot.properties.uranium >=
+        2 ||
+        chronobot.properties.neutronium > 0)
     ) {
       return `<div>
     <h3>Remove Anomaly</h3>

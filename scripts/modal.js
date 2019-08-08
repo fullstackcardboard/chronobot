@@ -1,11 +1,14 @@
 const ModalComponent = function() {
   const modal = $("#modal");
   const body = document.getElementById("modalBody");
+  const hideDiv = document.getElementById("hide");
   function show() {
-    modal.modal('show');
+    hideDiv.classList.remove("d-none");
+    modal.modal("show");
   }
 
   function hide() {
+    hideDiv.classList.add("d-none");
     modal.modal("hide");
   }
 

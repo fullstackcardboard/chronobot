@@ -9,9 +9,10 @@ const WaterComponent = function(appState, chronobot, modal) {
           e.target.dataset.action &&
           e.target.dataset.action === "water"
         ) {
-          chronobot.water += 2;
+          chronobot.properties.water += 2;
           chronobot.updateDisplay();
           modal.hide();
+          appState.updateState();
         }
       });
 

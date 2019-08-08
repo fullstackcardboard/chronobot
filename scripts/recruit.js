@@ -7,21 +7,23 @@ const RecruitComponent = function(appState, chronobot, modal) {
           if (action === "recruit") {
             const recruitSelect = document.getElementById("recruitSelect");
             let selectedWorker = recruitSelect.value.toLowerCase();
-            selectedWorker = selectedWorker === "genius" ? "geniuses" : selectedWorker +"s";
-            chronobot[selectedWorker]++;
+            selectedWorker =
+              selectedWorker === "genius" ? "geniuses" : selectedWorker + "s";
+            chronobot.properties[selectedWorker]++;
             modal.hide();
             if (
-              chronobot.scientists > 0 &&
-              chronobot.engineers > 0 &&
-              chronobot.adminstrators > 0 &&
-              chronobot.geniuses > 0
+              chronobot.properties.scientists > 0 &&
+              chronobot.properties.engineers > 0 &&
+              chronobot.properties.adminstrators > 0 &&
+              chronobot.properties.geniuses > 0
             ) {
-              chronobot.scientists--;
-              chronobot.engineers--;
-              chronobot.adminstrators--;
-              chronobot.geniuses--;
+              chronobot.properties.scientists--;
+              chronobot.properties.engineers--;
+              chronobot.properties.adminstrators--;
+              chronobot.properties.geniuses--;
             }
             chronobot.updateDisplay();
+            appState.updateState();
           }
         }
       });

@@ -7,23 +7,24 @@ const MineComponent = function(appState, chronobot, modal) {
           if (action === "mine") {
             Array.from(document.querySelectorAll("[data-resources]")).map(
               function(element) {
-                chronobot[element.value.toLowerCase()]++;
+                chronobot.properties[element.value.toLowerCase()]++;
               }
             );
             modal.hide();
             if (
-              chronobot.neutronium > 0 &&
-              chronobot.gold > 0 &&
-              chronobot.uranium > 0 &&
-              chronobot.titanium > 0
+              chronobot.properties.neutronium > 0 &&
+              chronobot.properties.gold > 0 &&
+              chronobot.properties.uranium > 0 &&
+              chronobot.properties.titanium > 0
             ) {
-              chronobot.neutronium--;
-              chronobot.gold--;
-              chronobot.uranium--;
-              chronobot.titanium--;
-              chronobot.vp += 5;
+              chronobot.properties.neutronium--;
+              chronobot.properties.gold--;
+              chronobot.properties.uranium--;
+              chronobot.properties.titanium--;
+              chronobot.properties.vp += 5;
             }
             chronobot.updateDisplay();
+            appState.updateState();
           }
         }
 
