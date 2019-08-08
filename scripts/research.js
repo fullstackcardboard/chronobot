@@ -22,7 +22,7 @@ const ResearchComponent = function(appState, chronobot, modal) {
     const breakthroughIndex = Math.floor(Math.random() * breakthroughs.length);
     chronobot.properties.vp++;
     const breakthrough = breakthroughs[breakthroughIndex];
-    chronobot.properties.breakthroughs[breakthroughIndex]++;
+    chronobot.properties.breakthroughs[breakthrough]++;
     chronobot.updateDisplay();
     return `<div>
     <h3>Research</h3>
