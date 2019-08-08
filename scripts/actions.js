@@ -45,7 +45,7 @@ const ActionsDisplayComponent = function() {
         nextTriggerNumbers += ")";
       }
       html += `<div
-            class="col border rounded bg-dark text-white action text-center"
+            class="col border shadow rounded bg-dark text-white action text-center mb-2"
             data-action="${key}"
           >
             ${key.toUpperCase()}
@@ -96,7 +96,7 @@ const ActionsDisplayComponent = function() {
           nextTriggerNumbers += ")";
         }
         html += `<div
-            class="col-md-6 m-auto border rounded bg-dark text-white action text-center"
+            class="col mb-2 border shadow rounded bg-dark text-white action text-center"
             data-action="${key}"
           >
             ${key.toUpperCase()}
