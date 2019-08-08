@@ -8,8 +8,10 @@ const ConstructComponent = function(appState, chronobot, type, modal) {
     buildingType = "Factory";
   } else if (building.type === "power") {
     buildingType = "Power Plant";
-  } else {
+  } else if (building.type === "lab") {
     buildingType = "Lab";
+  } else {
+    buildingType = "Super Project";
   }
   function bindEvents() {
     if (!appState.constructEventsBound) {
@@ -66,21 +68,39 @@ const ConstructComponent = function(appState, chronobot, type, modal) {
 
     function generateBuildingActionHtml(buildable) {
       if (buildable) {
-        html += `
-            <div class="col-8 m-auto">
+        if (buildingType === "Super Project") {
+          html += `
+            <div class="col-md-8 m-auto">
+                <select id="buildVp" class="form-control mb-2">
+                    <option value="4">4 VP</option>
+                    <option value="5">5 VP</option>
+                    <option value="6">6 VP</option>
+                    <option value="7">7 VP</option>
+                    <option value="8">8 VP</option>
+                </select>
+            </div>`;
+          html += `
+                <div class="col-md-8 m-auto">
+                    <button class="btn btn-block btn-info mb-2" data-action="fail">Gain VP/Water (Pre-Collapse)</button>
+                </div>`;
+        } else {
+          html += `
+            <div class="col-md-8 m-auto">
                 <select id="buildVp" class="form-control mb-2">
                     <option value="1">1 VP</option>
                     <option value="2">2 VP</option>
                     <option value="3">3 VP</option>
                     <option value="4">4 VP</option>
                 </select>
-            </div>
-            <div class="col-8 m-auto">
+            </div>`;
+        }
+
+        html += `<div class="col-md-8 m-auto">
                 <button class="btn btn-block btn-primary mb-2" data-action="build" data-type="${type}">Build</button>
             </div>`;
       } else {
         html += `
-                <div class="col-8 m-auto">
+                <div class="col-md-8 m-auto">
                     <button class="btn btn-block btn-danger mb-2" data-action="fail">Action Failed</button>
                 </div>`;
       }
@@ -88,15 +108,29 @@ const ConstructComponent = function(appState, chronobot, type, modal) {
 
     function generateBuildingStepHtml(buildable) {
       if (buildable) {
-        html += `
+        let preferences = "<p>Most VP > Secondary Building</p>";
+        if (buildingType === "Super Project") {
+          preferences = "<p>Most VP > Oldest</p>";
+          html += `
+        <li  class="rounded badge-dark col-12">
+              <p>If Collapse has occured, construct a ${buildingType} with the following preferences:</p>
+            <ul class="list-unstyled">
+                <li>
+                    ${preferences}
+                </li>
+            </ul>
+        </li>`;
+        } else {
+          html += `
         <li  class="rounded badge-dark col-12">
             <p>Construct a ${buildingType} with the following preferences:</p>
             <ul class="list-unstyled">
                 <li>
-                    <p>Most VP > Secondary Building</p>
+                    ${preferences}
                 </li>
             </ul>
         </li>`;
+        }
       } else {
         html += `<li>
             <p class="text-danger">Max number of ${buildingType}s constructed; do not place a building tile.</p>

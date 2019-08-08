@@ -16,8 +16,9 @@ const DieComponent = function(modal) {
       modal.show();
       // Set an interval to simulate the dice roll
       let interval = setInterval(() => {
-        die = Math.floor(Math.random() * 6);
+        die = Math.floor(Math.random() * 7);
         die = die === 0 ? 1 : die;
+        die = die > 6 ? 6 : die;
         const dieViewModel = new DieViewModel(die);
         modal.setBody(dieViewModel.html);
         index++;

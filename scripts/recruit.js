@@ -59,10 +59,10 @@ const RecruitComponent = function(appState, chronobot, modal) {
         </div>
         </div>
     </div>
-        <div class="col-8 m-auto">
+        <div class="col-md-8 m-auto">
             <button class="btn btn-block btn-danger mb-2" data-action="fail">Action Failed</button>
         </div>
-        <div class="col-8 m-auto">
+        <div class="col-md-8 m-auto">
             <button class="btn btn-block btn-primary mb-2" data-action="recruit">Recruit</button>
         </div>`;
   }

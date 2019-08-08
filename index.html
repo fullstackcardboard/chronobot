@@ -39,21 +39,20 @@
       <div class="lds-dual-ring"></div>
       <h2 class="mt-4">Loading...</h2>
     </div>
-    <div
-      id="hide"
-      class="d-none"
-      style="height: 4000px;"
-    ></div>
+    <div id="hide" class="d-none" style="height: 4000px;"></div>
     <div id="app" class="h-100 bg-light">
+      <div class="row">
+
+      </div>
       <div class=" bg-dark text-white sticky-top w-100">
         <a
           href="#"
           data-toggle="collapse"
-          data-target=".collapse"
+          data-target="#stats"
           class="btn dropdown-toggle text-white mb-2 mt-1 ml-2"
           >Chronobot</a
         >
-        <div id="stats" class="collapse container bg-secondary"></div>
+        <div id="stats" class="collapse container rounded bg-secondary"></div>
       </div>
       <nav class="navbar navbar-dark bg-dark text-white sticky-top mb-3">
         <!-- <a class="navbar-brand" href="#">Chronobot</a> -->
@@ -79,97 +78,7 @@
           </ul>
         </div>
       </nav>
-      <div class="container d-none" id="allActions">
-        <div class="row mb-2">
-          <div
-            class="col-3 border rounded bg-dark text-white action"
-            data-action="power"
-          >
-            Power
-          </div>
-          <div
-            class="col-3 border rounded bg-dark text-white action"
-            data-action="time"
-          >
-            Time
-          </div>
-          <div
-            class="col-3 border rounded bg-dark text-white action"
-            data-action="anomaly"
-          >
-            Anomaly
-          </div>
-          <div class="col-3"></div>
-        </div>
-        <div class="row mb-2">
-          <div
-            class="col-3 border rounded bg-dark text-white action"
-            data-action="supply"
-          >
-            Supply/Recruit
-          </div>
-          <div
-            class="col-3 border rounded bg-dark text-white action"
-            data-action="lab"
-          >
-            Lab
-          </div>
-          <div
-            class="col-3 border rounded bg-dark text-white action"
-            data-action="research"
-          >
-            Research
-          </div>
-          <div
-            class="col-3 border rounded bg-dark text-white action"
-            data-action="mine"
-          >
-            Mine
-          </div>
-        </div>
-        <div class="row mb-2">
-          <div
-            class="col-3 border rounded bg-dark text-white action"
-            data-action="support"
-          >
-            Support
-          </div>
-          <div
-            class="col-3 border rounded bg-dark text-white action"
-            data-action="recruit"
-          >
-            Recruit
-          </div>
-          <div
-            class="col-3 border rounded bg-dark text-white action"
-            data-action="factory"
-          >
-            Factory
-          </div>
-          <div
-            class="col-3 border rounded bg-dark text-white action"
-            data-action="waterTemp"
-          >
-            Water (Single)
-          </div>
-        </div>
-        <div class="row">
-          <div
-            class="col-3 border rounded bg-dark text-white action"
-            data-action="water"
-          >
-            Water
-          </div>
-          <div
-            class="col-3 border rounded bg-dark text-white action"
-            data-action="superProject"
-          >
-            Super Project
-          </div>
-          <div class="col-3"></div>
-          <div class="col-3"></div>
-        </div>
-      </div>
+      <div class="container d-none" id="allActions"></div>
     </div>
     <div id="possibleActions" class="text-white container"></div>
     <div

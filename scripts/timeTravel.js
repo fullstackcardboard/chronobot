@@ -38,15 +38,15 @@ const TimeTravelComponent = function(appState, chronoBot, modal) {
             </li>
         </ul>
     </div>    
-        <div class="col-8 m-auto">
+        <div class="col-md-8 m-auto">
             <button class="btn btn-block btn-primary mb-2" data-action="time">Remove Warp Tile</button>
         </div>`;
     } else {
       html += `  
       <div>
-        <h3 class="text-danger">Action not possible.</h3>
+        <h3 class="rounded badge-danger col-12">Action not possible.</h3>
       </div>
-      <div class="col-8 m-auto">
+      <div class="col-md-8 m-auto">
             <button class="btn btn-block btn-danger mb-2" data-action="fail">Action Failed</button>
         </div>`;
     }

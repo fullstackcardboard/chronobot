@@ -76,6 +76,11 @@ let chronobot = {
       return building.type === "lab";
     }).length;
   },
+  get superProjects() {
+    return this.properties.buildings.filter(function(building) {
+      return building.type === "super";
+    }).length;
+  },
   get resourcesScoreable() {
     return (
       this.properties.uranium > 0 &&
@@ -90,6 +95,13 @@ let chronobot = {
       this.properties.engineers > 0 &&
       this.properties.administrators > 0 &&
       this.properties.geniuses > 0
+    );
+  },
+  get breakthroughsScoreable() {
+    return (
+      this.properties.breakthroughs.circle > 0 &&
+      this.properties.breakthroughs.square > 0 &&
+      this.properties.breakthroughs.triangle > 0
     );
   },
   updateDisplay: function() {
@@ -156,6 +168,9 @@ let chronobot = {
             <div class="col">
                 <p>Labs: ${this.labs}</p>
             </div>
+            <div class="col">
+                <p>Super: ${this.superProjects}</p>
+            </div>
         </div>
       </div>
         <div class="col">
@@ -219,8 +234,10 @@ const components = {
   ),
   time: new TimeTravelComponent(appState, chronobot, modal),
   water: new WaterComponent(appState, chronobot, modal),
-  waterTemp: new WaterComponent(appState, chronobot, modal)
+  waterTemp: new WaterComponent(appState, chronobot, modal),
+  superProject: new ConstructComponent(appState, chronobot, "super", modal)
 };
+
 let actions = {
   power: { triggers: [1], nextAction: "time" },
   time: { triggers: [], nextAction: "anomaly" },
@@ -285,6 +302,7 @@ function bindEvents() {
 }
 
 function updateActionTriggers(result) {
+  console.log("Rolled " + result);
   const keys = Object.keys(actions);
   for (let index = 0; index < keys.length; index++) {
     const key = keys[index];
@@ -300,10 +318,9 @@ function updateActionTriggers(result) {
       modal.show();
       if (component && "executeAction" in component) {
         modal.setBody(component.executeAction());
-        console.log(key + " executed");
+        console.log(key.toUpperCase() + " executed");
       } else {
-        modal.setBody(key + " failed");
-        console.log(key + " failed");
+        console.log(key.toUpperCase() + " failed");
       }
       actionDisplay.updateDisplays(actions);
       return;

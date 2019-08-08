@@ -76,7 +76,7 @@ const AnomalyComponent = function(appState, chronobot, modal) {
     ) {
       return `<div>
     <h3>Remove Anomaly</h3>
-      <div class="col-8 m-auto">
+      <div class="col-md-8 m-auto">
             <button class="btn btn-block btn-danger mb-2" data-action="anomaly">Remove Anomaly</button>
         </div>
         </div>`;
@@ -87,9 +87,9 @@ const AnomalyComponent = function(appState, chronobot, modal) {
     <h3>Remove Anomaly</h3>
     </div>
       <div>
-        <h3 class="text-danger">Action not possible.</h3>
+        <h3 class="class="rounded badge-danger col-12"">Action not possible.</h3>
       </div>
-      <div class="col-8 m-auto">
+      <div class="col-md-8 m-auto">
             <button class="btn btn-block btn-danger mb-2" data-action="fail">Action Failed</button>
         </div>`;
   }
