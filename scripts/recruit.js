@@ -11,12 +11,7 @@ const RecruitComponent = function(appState, chronobot, modal) {
               selectedWorker === "genius" ? "geniuses" : selectedWorker + "s";
             chronobot.properties[selectedWorker]++;
             modal.hide();
-            if (
-              chronobot.properties.scientists > 0 &&
-              chronobot.properties.engineers > 0 &&
-              chronobot.properties.adminstrators > 0 &&
-              chronobot.properties.geniuses > 0
-            ) {
+            if (chronobot.workersScoreable) {
               chronobot.properties.scientists--;
               chronobot.properties.engineers--;
               chronobot.properties.adminstrators--;

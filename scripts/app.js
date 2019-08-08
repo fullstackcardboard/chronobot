@@ -187,16 +187,19 @@ const appState = {
   updateState: function() {
     this.state.push({
       actions: deepCopy(actions),
-      chronobot: deepCopy(chronobot.properties)
+      properties: deepCopy(chronobot.properties)
     });
   },
   undo: function() {
     if (this.state.length > 1) {
-      this.state.pop();
+      this.state = this.state.filter(element => {
+        return element != this.state[this.state.length - 1];
+      });
       const previousState = this.state[this.state.length - 1];
       actions = previousState.actions;
-      chronobot.properties = previousState.chronobot;
+      chronobot.properties = previousState.properties;
       chronobot.updateDisplay();
+      actionDisplay.updateDisplays(actions);
     }
   }
 };
@@ -302,7 +305,7 @@ function updateActionTriggers(result) {
         modal.setBody(key + " failed");
         console.log(key + " failed");
       }
-      actionDisplay.updateDisplays();
+      actionDisplay.updateDisplays(actions);
       return;
     }
   }
@@ -313,8 +316,8 @@ function init() {
   const failComponent = new FailComponent(appState, chronobot, modal);
   appState.updateState();
   chronobot.updateDisplay();
-  actionDisplay = new ActionDisplayComponent(actions);
-  actionDisplay.updateDisplays();
+  actionDisplay = new ActionDisplayComponent();
+  actionDisplay.updateDisplays(actions);
 }
 
 init();

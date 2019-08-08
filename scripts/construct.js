@@ -1,4 +1,4 @@
-const ConstructComponent = function(appState, chronoBot, type, modal) {
+const ConstructComponent = function(appState, chronobot, type, modal) {
   let html = "";
   let building = { type };
   let buildingType = "";
@@ -21,10 +21,10 @@ const ConstructComponent = function(appState, chronoBot, type, modal) {
             const newBuilding = { type: targetElement.dataset.type };
             const buildingVpInput = document.getElementById("buildVp");
             newBuilding.vp = buildingVpInput.value;
-            chronoBot.properties.buildings.push(newBuilding);
-            chronoBot.properties.vp += parseInt(newBuilding.vp);
+            chronobot.properties.buildings.push(newBuilding);
+            chronobot.properties.vp += parseInt(newBuilding.vp);
             modal.hide();
-            chronoBot.updateDisplay();
+            chronobot.updateDisplay();
             appState.updateState();
           }
         }
@@ -34,7 +34,7 @@ const ConstructComponent = function(appState, chronoBot, type, modal) {
     }
   }
   function executeAction() {
-    const matchingBuildings = chronoBot.properties.buildings.filter(function(
+    const matchingBuildings = chronobot.properties.buildings.filter(function(
       x
     ) {
       return x.type === building.type;

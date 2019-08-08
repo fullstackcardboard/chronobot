@@ -1,10 +1,10 @@
-const ActionsDisplayComponent = function(actions) {
-  function updateDisplays() {
-    updateAllDisplay();
-    updatePossibleDisplay();
+const ActionsDisplayComponent = function() {
+  function updateDisplays(actions) {
+    updateAllDisplay(actions);
+    updatePossibleDisplay(actions);
   }
 
-  function updateAllDisplay() {
+  function updateAllDisplay(actions) {
     const allActionsContainer = document.getElementById("allActions");
     let html = ``;
 
@@ -56,7 +56,7 @@ const ActionsDisplayComponent = function(actions) {
     allActionsContainer.innerHTML = html;
   }
 
-  function updatePossibleDisplay() {
+  function updatePossibleDisplay(actions) {
     const possibleActionsContainer = document.getElementById("possibleActions");
     let html = ``;
 

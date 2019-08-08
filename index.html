@@ -39,7 +39,11 @@
       <div class="lds-dual-ring"></div>
       <h2 class="mt-4">Loading...</h2>
     </div>
-    <div id="hide" class="d-none bg-secondary" style="height: 4000px; z-index: 1031"></div>
+    <div
+      id="hide"
+      class="d-none"
+      style="height: 4000px;"
+    ></div>
     <div id="app" class="h-100 bg-light">
       <div class=" bg-dark text-white sticky-top w-100">
         <a
@@ -51,9 +55,7 @@
         >
         <div id="stats" class="collapse container bg-secondary"></div>
       </div>
-      <nav
-        class="navbar navbar-dark bg-dark text-white sticky-top mb-3"
-      >
+      <nav class="navbar navbar-dark bg-dark text-white sticky-top mb-3">
         <!-- <a class="navbar-brand" href="#">Chronobot</a> -->
         <div class="navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto col-md-5">
@@ -187,31 +189,33 @@
       </div>
     </div>
 
-    <div class="fixed-bottom bg-dark row">
-      <div class="mb-1 mt-1 col-md">
-        <button
-          class="btn btn-outline-danger m-auto btn-block mb-1 col-11"
-          data-action="addAnomaly"
-        >
-          Add Anomaly
-        </button>
-      </div>
-      <div class="mb-1 mt-1 col-md">
-      <button
-        id="visibility"
-        class="btn btn-outline-info btn-block m-auto mb-1 col-11"
-        data-visible="false"
-      >
-        Show All <i class="far fa-eye"></i>
-      </button>
-      </div>
-      <div class="mb-1 mt-1 col-md">
-      <button
-        id="nextAction"
-        class="btn btn-block btn-outline-light m-auto mb-1 col-11"
-      >
-        Next Action
-      </button>
+    <div class="fixed-bottom bg-dark container-fluid">
+      <div class="row">
+        <div class="mb-1 mt-1 col">
+          <button
+            class="btn btn-outline-danger m-auto btn-block mb-1"
+            data-action="addAnomaly"
+          >
+            Add Anomaly
+          </button>
+        </div>
+        <div class="mb-1 mt-1 col">
+          <button
+            id="visibility"
+            class="btn btn-outline-info btn-block m-auto mb-1"
+            data-visible="false"
+          >
+            Show All <i class="far fa-eye"></i>
+          </button>
+        </div>
+        <div class="mb-1 mt-1 col">
+          <button
+            id="nextAction"
+            class="btn btn-block btn-outline-light m-auto mb-1"
+          >
+            Next Action
+          </button>
+        </div>
       </div>
     </div>
     <script src="./scripts/app.js" type="module"></script>

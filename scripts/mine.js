@@ -11,12 +11,7 @@ const MineComponent = function(appState, chronobot, modal) {
               }
             );
             modal.hide();
-            if (
-              chronobot.properties.neutronium > 0 &&
-              chronobot.properties.gold > 0 &&
-              chronobot.properties.uranium > 0 &&
-              chronobot.properties.titanium > 0
-            ) {
+            if (chronobot.resourcesScoreable) {
               chronobot.properties.neutronium--;
               chronobot.properties.gold--;
               chronobot.properties.uranium--;
