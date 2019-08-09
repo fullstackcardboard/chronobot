@@ -9,8 +9,13 @@ const TimeTravelComponent = function(appState, chronoBot, modal) {
           e.target.dataset.action === "time"
         ) {
           chronoBot.properties.timeTravelTrack.currentSpace++;
+          chronoBot.properties.timePoints =
+            chronoBot.properties.timeTravelTrack.spaces[
+              chronoBot.properties.timeTravelTrack.currentSpace
+            ].vp;
           modal.hide();
           appState.updateState();
+          chronoBot.updateDisplay();
         }
 
         appState.timeTravelEventsBound = true;

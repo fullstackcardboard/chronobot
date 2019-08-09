@@ -19,6 +19,7 @@ let chronobot = {
     anomalies: 0,
     buildings: [],
     timePoints: 0,
+    moralePoints: 0,
     water: 0,
     uranium: 0,
     titanium: 0,
@@ -34,8 +35,7 @@ let chronobot = {
         { cost: 5, vp: 0 },
         { cost: 6, vp: 2 },
         { cost: 7, vp: 5 },
-        { cost: 7, vp: 8 },
-        { cost: 7, vp: 0 }
+        { cost: 7, vp: 8 }
       ]
     },
     timeTravelTrack: {
@@ -109,7 +109,9 @@ let chronobot = {
     <div class="col">
         <div class="row">
             <div class="col">
-                <p>VP: ${this.properties.vp}</p>
+                <p>VP: ${this.properties.vp +
+                  this.properties.timePoints +
+                  this.properties.moralePoints}</p>
             </div>
             <div class="col">
                 <p>Water: ${this.properties.water}</p>
