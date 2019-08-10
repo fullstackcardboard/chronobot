@@ -2,6 +2,7 @@ const Chronobot = function() {
   return {
     properties: {
       vp: 0,
+      paradox: 0,
       anomalies: 0,
       buildings: [],
       timePoints: 0,
@@ -101,6 +102,9 @@ const Chronobot = function() {
             </div>
             <div class="col">
                 <p>Water: ${this.properties.water}</p>
+            </div>
+            <div class="col">
+                <p>Paradox: ${this.properties.paradox}</p>
             </div>
             <div class="col">
                 <p>Anomalies: ${this.properties.anomalies}</p>

@@ -3,7 +3,7 @@ const AnomalyComponent = function(app, chronobot, modal) {
     if (!app.anomalyEventsBound) {
       document.addEventListener("click", function(e) {
         handleAnomalyRemoval(e);
-        handleAnomalyAddition(e);
+        handleParadoxAddition(e);
         app.anomalyEventsBound = true;
       });
 
@@ -47,14 +47,18 @@ const AnomalyComponent = function(app, chronobot, modal) {
           app.updateState();
         }
       }
-      function handleAnomalyAddition(e) {
+      function handleParadoxAddition(e) {
         if (
           e.target &&
           e.target.dataset &&
           e.target.dataset.action &&
-          e.target.dataset.action === "addAnomaly"
+          e.target.dataset.action === "addParadox"
         ) {
-          chronobot.properties.anomalies++;
+          chronobot.properties.paradox++;
+          if (chronobot.properties.paradox === 3) {
+            chronobot.properties.anomalies++;
+            chronobot.properties.paradox = 0;
+          }
           chronobot.updateDisplay();
           app.updateState();
         }
