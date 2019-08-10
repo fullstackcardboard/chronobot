@@ -1,6 +1,6 @@
-const MineComponent = function(appState, chronobot, modal) {
+const MineComponent = function(app, chronobot, modal) {
   function bindEvents() {
-    if (!appState.mineEventsBound) {
+    if (!app.mineEventsBound) {
       document.addEventListener("click", function(e) {
         if (e.target && e.target.dataset && e.target.dataset.action) {
           const action = e.target.dataset.action;
@@ -19,20 +19,37 @@ const MineComponent = function(appState, chronobot, modal) {
               chronobot.properties.vp += 5;
             }
             chronobot.updateDisplay();
-            appState.updateState();
+            app.updateState();
           }
         }
 
-        appState.mineEventsBound = true;
+        app.mineEventsBound = true;
       });
     }
   }
 
-  function executeAction() {
+  function executeAction(dieHtml) {
     return `
     <div>
-        <h3>Mine - CURRENT RESOURCES WILL DISPLAY HERE</h3>
-    </div>
+        <h3>Mine ${dieHtml}</h3>
+    </div
+    <div class="col">
+          <h4>Resources</h4>
+        <div class="row">
+            <div class="col">
+                <p>Ne: ${chronobot.properties.neutronium}</p>
+            </div>
+            <div class="col">
+                <p>Ur: ${chronobot.properties.uranium}</p>
+            </div>
+            <div class="col">
+                <p>Gold: ${chronobot.properties.gold}</p>
+            </div>
+            <div class="col">
+                <p>Ti: ${chronobot.properties.titanium}</p>
+            </div>
+          </div>
+        </div>
     <div>
         <ul class="list-unstyled  col">
             <li class="badge-dark col-12 mb-2 rounded">

@@ -1,6 +1,6 @@
-const TimeTravelComponent = function(appState, chronoBot, modal) {
+const TimeTravelComponent = function(app, chronoBot, modal) {
   function bindEvents() {
-    if (!appState.timeTravelEventsBound) {
+    if (!app.timeTravelEventsBound) {
       document.addEventListener("click", function(e) {
         if (
           e.target &&
@@ -14,22 +14,22 @@ const TimeTravelComponent = function(appState, chronoBot, modal) {
               chronoBot.properties.timeTravelTrack.currentSpace
             ].vp;
           modal.hide();
-          appState.updateState();
+          app.updateState();
           chronoBot.updateDisplay();
         }
 
-        appState.timeTravelEventsBound = true;
+        app.timeTravelEventsBound = true;
       });
     }
   }
 
   bindEvents();
 
-  function executeAction() {
+  function executeAction(dieHtml) {
     let html = "";
     html += `
     <div>
-        <h3>Time Travel</h3>
+        <h3>Time Travel ${dieHtml}</h3>
     </div>`;
     if (
       chronoBot.properties.timeTravelTrack.currentSpace <

@@ -1,8 +1,8 @@
-const ResearchComponent = function(appState, chronobot, modal) {
+const ResearchComponent = function(app, chronobot, modal) {
   const breakthroughs = ["circle", "triangle", "square"];
 
   function bindEvents() {
-    if (!appState.researchEventsBound) {
+    if (!app.researchEventsBound) {
       document.addEventListener("click", function(e) {
         if (
           e.target &&
@@ -11,14 +11,14 @@ const ResearchComponent = function(appState, chronobot, modal) {
           e.target.dataset.action === "breakthrough"
         ) {
           modal.hide();
-          appState.updateState();
+          app.updateState();
         }
       });
     }
   }
   bindEvents();
 
-  function executeAction() {
+  function executeAction(dieHtml) {
     const breakthroughIndex = Math.floor(Math.random() * breakthroughs.length);
     chronobot.properties.vp++;
     const breakthrough = breakthroughs[breakthroughIndex];
@@ -35,7 +35,7 @@ const ResearchComponent = function(appState, chronobot, modal) {
     }
     chronobot.updateDisplay();
     return `<div>
-    <h3>Research</h3>
+    <h3>Research ${dieHtml}</h3>
     <p class="rounded badge-dark col-12">Gained ${breakthrough} breakthrough.<p>
     ${scoredBreakthroughs}    
       <div class="col m-auto">

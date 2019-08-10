@@ -1,6 +1,6 @@
-const WaterComponent = function(appState, chronobot, modal) {
+const WaterComponent = function(app, chronobot, modal) {
   function bindEvents() {
-    if (!appState.waterEventsBound) {
+    if (!app.waterEventsBound) {
       document.addEventListener("click", function(e) {
         if (
           e &&
@@ -12,19 +12,19 @@ const WaterComponent = function(appState, chronobot, modal) {
           chronobot.properties.water += 2;
           chronobot.updateDisplay();
           modal.hide();
-          appState.updateState();
+          app.updateState();
         }
       });
 
-      appState.waterEventsBound = true;
+      app.waterEventsBound = true;
     }
   }
   bindEvents();
 
-  function executeAction() {
+  function executeAction(dieHtml) {
     return `
     <div>
-    <h3>Water</h3>
+    <h3>Water ${dieHtml}</h3>
     </div>
       <div class="col-md-8 m-auto">
             <button class="btn btn-block btn-primary mb-2" data-action="water">Gain Water</button>

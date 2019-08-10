@@ -1,5 +1,20 @@
-const SupplyComponent = function(chronobot, recruitComponent) {
-  function executeAction() {
+const SupplyComponent = function(app, chronobot, recruitComponent, modal) {
+  function bindEvents() {
+    if (!app.supplyEventsBound) {
+      document.addEventListener("click", function(e) {
+        if (
+          e.target &&
+          e.target.dataset &&
+          e.target.dataset.action &&
+          e.target.dataset.action === "morale"
+        ) {
+          modal.hide();
+        }
+      });
+    }
+  }
+
+  function executeAction(dieHtml) {
     if (chronobot.properties.moralePoints < 8) {
     }
     const currentMorale =
@@ -14,8 +29,15 @@ const SupplyComponent = function(chronobot, recruitComponent) {
           chronobot.properties.moraleTrack.currentSpace
         ].vp;
       chronobot.updateDisplay();
-      appState.updateState();
-      return `<div><button class="btn btn-primary" data-toggle="modal" data-target="#modal">Increase Morale</button></div>`;
+      app.updateState();
+
+      return `
+    <div>
+    <h3>Supply ${dieHtml}</h3>
+    </div>
+      <div class="col-md-8 m-auto">
+            <button class="btn btn-block btn-primary mb-2" data-action="morale">Increase Morale</button>
+        </div>`;
     } else {
       return recruitComponent.executeAction();
     }

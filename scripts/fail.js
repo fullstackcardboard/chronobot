@@ -1,19 +1,22 @@
-const ActionFailComponent = function(appState, chronobot, modal) {
+const ActionFailComponent = function(app, chronobot, modal) {
   function bindEvents() {
-    if (!appState.failEventsBound) {
+    if (!app.failEventsBound) {
       document.addEventListener("click", function(e) {
         if (e.target && e.target.dataset && e.target.dataset.action) {
           const action = e.target.dataset.action;
           if (action === "fail") {
-            chronobot.properties.water += 2;
+            const vpOnly = e.target.dataset.vpOnly;;
+            if (!vpOnly) {
+              chronobot.properties.water += 2;
+            }
             chronobot.properties.vp++;
             modal.hide();
             chronobot.updateDisplay();
-            appState.updateState();
+            app.updateState();
           }
         }
 
-        appState.failEventsBound = true;
+        app.failEventsBound = true;
       });
     }
   }

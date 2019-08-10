@@ -1,10 +1,10 @@
-const AnomalyComponent = function(appState, chronobot, modal) {
+const AnomalyComponent = function(app, chronobot, modal) {
   function bindEvents() {
-    if (!appState.anomalyEventsBound) {
+    if (!app.anomalyEventsBound) {
       document.addEventListener("click", function(e) {
         handleAnomalyRemoval(e);
         handleAnomalyAddition(e);
-        appState.anomalyEventsBound = true;
+        app.anomalyEventsBound = true;
       });
 
       function handleAnomalyRemoval(e) {
@@ -44,7 +44,7 @@ const AnomalyComponent = function(appState, chronobot, modal) {
           }
           chronobot.properties.anomalies--;
           modal.hide();
-          appState.updateState();
+          app.updateState();
         }
       }
       function handleAnomalyAddition(e) {
@@ -56,7 +56,7 @@ const AnomalyComponent = function(appState, chronobot, modal) {
         ) {
           chronobot.properties.anomalies++;
           chronobot.updateDisplay();
-          appState.updateState();
+          app.updateState();
         }
       }
     }
@@ -64,7 +64,7 @@ const AnomalyComponent = function(appState, chronobot, modal) {
 
   bindEvents();
 
-  function executeAction() {
+  function executeAction(dieHtml) {
     if (
       chronobot.properties.anomalies > 0 &&
       chronobot.properties.water >= 2 &&
@@ -75,7 +75,8 @@ const AnomalyComponent = function(appState, chronobot, modal) {
         chronobot.properties.neutronium > 0)
     ) {
       return `<div>
-    <h3>Remove Anomaly</h3>
+    <h3>Remove Anomaly ${dieHtml}</h3>
+  
       <div class="col-md-8 m-auto">
             <button class="btn btn-block btn-danger mb-2" data-action="anomaly">Remove Anomaly</button>
         </div>

@@ -1,4 +1,4 @@
-const ConstructComponent = function(appState, chronobot, type, modal) {
+const ConstructComponent = function(app, chronobot, type, modal) {
   let html = "";
   let building = { type };
   let buildingType = "";
@@ -14,7 +14,7 @@ const ConstructComponent = function(appState, chronobot, type, modal) {
     buildingType = "Super Project";
   }
   function bindEvents() {
-    if (!appState.constructEventsBound) {
+    if (!app.constructEventsBound) {
       document.addEventListener("click", function(e) {
         if (e.target && e.target.dataset.action) {
           const targetElement = e.target;
@@ -27,15 +27,15 @@ const ConstructComponent = function(appState, chronobot, type, modal) {
             chronobot.properties.vp += parseInt(newBuilding.vp);
             modal.hide();
             chronobot.updateDisplay();
-            appState.updateState();
+            app.updateState();
           }
         }
       });
 
-      appState.constructEventsBound = true;
+      app.constructEventsBound = true;
     }
   }
-  function executeAction() {
+  function executeAction(dieHtml) {
     const matchingBuildings = chronobot.properties.buildings.filter(function(
       x
     ) {
@@ -43,13 +43,14 @@ const ConstructComponent = function(appState, chronobot, type, modal) {
     });
     const buildable =
       matchingBuildings != undefined && matchingBuildings.length < 3;
-    return generateHtml(buildable);
+    return generateHtml(buildable, dieHtml);
   }
 
-  function generateHtml(buildable) {
+  function generateHtml(buildable, dieHtml) {
     html = `
     <div>
-        <h3>Construct ${buildingType}</h3>
+        <h3>Construct ${buildingType} ${dieHtml}</h3>
+        
     </div>
     <div>
         <ul class="list-unstyled mb-1 mt-1">
@@ -81,7 +82,7 @@ const ConstructComponent = function(appState, chronobot, type, modal) {
             </div>`;
           html += `
                 <div class="col-md-8 m-auto">
-                    <button class="btn btn-block btn-info mb-2" data-action="fail">Gain VP/Water (Pre-Collapse)</button>
+                    <button class="btn btn-block btn-info mb-2" data-action="fail" data-vp-only="true">Gain VP (Pre-Collapse)</button>
                 </div>`;
         } else {
           html += `

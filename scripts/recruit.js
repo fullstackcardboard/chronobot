@@ -1,6 +1,6 @@
-const RecruitComponent = function(appState, chronobot, modal) {
+const RecruitComponent = function(app, chronobot, modal) {
   function bindEvents() {
-    if (!appState.recruitEventsBound) {
+    if (!app.recruitEventsBound) {
       document.addEventListener("click", function(e) {
         if (e.target && e.target.dataset && e.target.dataset.action) {
           const action = e.target.dataset.action;
@@ -14,24 +14,41 @@ const RecruitComponent = function(appState, chronobot, modal) {
             if (chronobot.workersScoreable) {
               chronobot.properties.scientists--;
               chronobot.properties.engineers--;
-              chronobot.properties.adminstrators--;
+              chronobot.properties.administrators--;
               chronobot.properties.geniuses--;
+              chronobot.properties.vp += 5;
             }
             chronobot.updateDisplay();
-            appState.updateState();
+            app.updateState();
           }
         }
       });
 
-      appState.recruitEventsBound = true;
+      app.recruitEventsBound = true;
     }
   }
 
-  function executeAction() {
+  function executeAction(dieHtml) {
     return `
     <div>
-        <h3>Recruit - CURRENT WORKERS WILL DISPLAY HERE</h3>
+        <h3>Recruit ${dieHtml}</h3>
     </div>
+      <h4>Workers</h4>
+          <div class="row">
+            <div class="col">
+                <p>Sc: ${chronobot.properties.scientists}</p>
+            </div>
+            <div class="col">
+                <p>En: ${chronobot.properties.engineers}</p>
+            </div>
+            <div class="col">
+                <p>Admin: ${chronobot.properties.administrators}</p>
+            </div>
+            <div class="col">
+                <p>Gen: ${chronobot.properties.geniuses}</p>
+            </div>
+          </div>
+        </div>
     <div>
         <ul class="list-unstyled  col col">
             <li class="badge-dark col-12 mb-2">
