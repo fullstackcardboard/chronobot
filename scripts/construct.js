@@ -96,7 +96,11 @@ const ConstructComponent = function(app, chronobot, type, modal) {
             </div>`;
         }
 
-        html += `<div class="col-md-8 m-auto">
+        html += `
+                <div class="col-md-8 m-auto">
+                    <button class="btn btn-block btn-danger mb-2" data-action="fail">Action Failed</button>
+                </div>
+        <div class="col-md-8 m-auto">
                 <button class="btn btn-block btn-primary mb-2" data-action="build" data-type="${type}">Build</button>
             </div>`;
       } else {

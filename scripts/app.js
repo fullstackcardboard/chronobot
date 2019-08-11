@@ -11,6 +11,7 @@ import ModalComponent from "./modal.js";
 import WaterComponent from "./water.js";
 import ActionDisplayComponent from "./actions.js";
 import Chronobot from "./chronobot.js";
+import OptionsComponent from "./options.js";
 let actionDisplay = {};
 const modal = new ModalComponent();
 const chronobot = new Chronobot();
@@ -158,6 +159,7 @@ function updateActionTriggers(dieResult, dieHtml) {
 function init() {
   bindEvents();
   const failComponent = new FailComponent(app, chronobot, modal);
+  const options = new OptionsComponent(app);
   app.updateState();
   chronobot.updateDisplay();
   actionDisplay = new ActionDisplayComponent();

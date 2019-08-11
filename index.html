@@ -41,26 +41,15 @@
     </div>
     <div id="hide" class="d-none" style="height: 4000px;"></div>
     <div id="app" class="h-100 bg-secondary">
-      <div class="row">
-
-      </div>
-      <div class=" bg-dark text-white sticky-top w-100">
-        <a
-          href="#"
-          data-toggle="collapse"
-          data-target="#stats"
-          class="btn dropdown-toggle text-white mb-2 mt-1 ml-2"
-          >Chronobot</a
-        >
-        <div id="stats" class="collapse container rounded bg-secondary"></div>
-      </div>
+      <div class=" bg-dark text-white sticky-top w-100"></div>
       <nav class="navbar navbar-dark bg-dark text-white sticky-top mb-3">
         <!-- <a class="navbar-brand" href="#">Chronobot</a> -->
         <div class="navbar-collapse" id="navbarSupportedContent">
+          <div id="stats" class="collapse container rounded bg-secondary"></div>
           <ul class="navbar-nav mr-auto col-md-5">
             <li class="nav-item dropdown">
               <a
-                class="nav-link dropdown-toggle"
+                class="nav-link dropdown-toggle text-white mt-2"
                 href="#"
                 id="navbarDropdown"
                 role="button"
@@ -70,12 +59,48 @@
               >
                 Options
               </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#" id="newGame" onclick="window.location.reload();">New Game</a>
-                <a class="dropdown-item" href="#" data-action="undo">Undo</a>
+              <div
+                class="dropdown-menu bg-secondary"
+                aria-labelledby="navbarDropdown"
+              >
+                <a
+                  class="dropdown-item text-white"
+                  href="#"
+                  id="newGame"
+                  data-action="newGame"
+                  >New Game</a
+                >
+                <div class="dropdown-item">
+                  <label for="difficulty" class="text-white">Easy Mode</label>
+                  <input
+                    id="difficulty"
+                    type="checkbox"
+                    data-action="difficulty"
+                    class="form-check-inline"
+                  />
+                </div>
               </div>
             </li>
           </ul>
+<div class="row">
+          <div class="col">
+            <a
+              class="btn btn-outline-secondary text-white"
+              href="#"
+              data-action="undo"
+              >Undo</a
+            >
+          </div>
+          <div class="col">
+            <a
+              href="#"
+              data-toggle="collapse"
+              data-target="#stats"
+              class="btn dropdown-toggle btn-outline-secondary text-white float-right"
+              >Chronobot</a
+            >
+</div>
+          </div>
         </div>
       </nav>
       <div class="container d-none" id="allActions"></div>

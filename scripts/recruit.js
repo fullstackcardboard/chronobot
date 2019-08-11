@@ -51,13 +51,13 @@ const RecruitComponent = function(app, chronobot, modal) {
         </div>
     <div>
         <ul class="list-unstyled  col col">
-            <li class="badge-dark col-12 mb-2">
+            <li class="badge-dark col-12 rounded mb-2">
                 <p>Place a powered up exosuit in an available Recruit space with the following preferences:</p>
                 <ul class="list-unstyled  col">
                     <li><p>Top Recruit Space > Middle Recruit Space > Bottom Recruit Space > World Council Space (1st player) > World Council Space</p></li>
                 </ul>
             </li>
-            <li class="badge-dark col-12 mb-2">
+            <li class="badge-dark col-12 rounded mb-2">
                 <p>Take a worker that Chronobot does not yet have; with the following preferences:</p>
                 <ul class="list-unstyled  col">
                     <li><p>Genius > Administrator > Engineer > Scientist</p></li>
